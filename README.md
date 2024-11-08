@@ -16,8 +16,8 @@ This approach modifies the loss function by adding a KL divergence penalty to th
 ### Loss Formulation
 Let:
 - $\mathbf{p}$ represent the target distribution (a Gaussian-like distribution centered on the correct class),
-- $ \mathbf{q} $ represent the model’s predicted probabilities after softmax,
-- $ N $ represent the number of classes.
+- $\mathbf{q}$ represent the model’s predicted probabilities after softmax,
+- $N$ represent the number of classes.
 
 The KL divergence component is given by:
 
@@ -36,6 +36,14 @@ where:
 -  $\mathbf{y}$ is the true class label,
 - $\alpha$ is a hyperparameter controlling the weight of the KL divergence penalty.
 
+### Computational Complexity and Space Requirements
+For a batch size of $B$ and a class size of $K$
+
+Computational: $O(B \cdot K)$
+
+Space: $O(B \cdot K)$
+
+Both are linear
 ### Code Explanation
 
 Below is a breakdown of the key parts of the code used in this experiment.
@@ -78,5 +86,6 @@ def kl_divergence(p, q):
 |--------------------------------|----------------------|---------------------------------------|
 | **Mean MSE on Clean Data**          | 153 ± x       | 130 ± x                        |
 | **Confidence Interval (95%)**  | *     | *                       |
-Confidence intervals will added once I'm able to re-run experiement on suitable number of iterations
+
+Confidence intervals will added once I'm able to re-run experiement on suitable number of iterations. For now we can see a minor improvment on the performance over our control model with base cross entropy
 
