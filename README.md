@@ -54,11 +54,11 @@ The UTKFace dataset was used for an age estimation task formulated as a ordinal 
 
 ### Model and Training
 
-See the attached .py files for specfics on the models and training hyperparameters. The base model is a very simple CNN based model. Both control and KL models were trained for 50 epochs at a fixed lr and testing on a subset of clean data for MSE
+See the attached .py files for specfics on the models and training hyperparameters. The base model is a very simple CNN based model (<10M parameters). Both control and KL models were trained for 50 epochs at a fixed lr and testing on a subset of clean data for MSE
 
 ### Gaussian Target Distribution
 
-To construct a smoother target distribution, a Gaussian mound is created around the correct class label, assigning a probability to each class based on its distance from the correct class.
+To construct a smoother target distribution, a Gaussian mound is created around the correct class label and rescaled. Currently done in numpy from testing but could easly be converted to pytoch.  
 
 ```python
 import numpy as np
@@ -72,7 +72,7 @@ def create_gaussian_mound(num_classes, correct_class, sigma=1):
 
 ### KL Divergence Function
 
-The KL Divergence function calculates the divergence between the Gaussian mound distribution and the model's softmax probabilities for the given logits.
+The KL Divergence function calculates the divergence between the Gaussian mound distribution and the model's softmax probabilities for the given logits. 
 
 ```python
 def kl_divergence(p, q):
@@ -90,5 +90,5 @@ def kl_divergence(p, q):
 
 Confidence intervals will added once I'm able to re-run experiement on suitable number of iterations. For now we can see a minor improvment on the performance over our control model with base cross entropy which fingers crossed winds up being significant. 
 
-It should be noted that neither model was optimized for the task through any hyperparemter searching, this experimental result should be taken as a proof of concept. 
+It should be noted that neither model was optimized for the task through any hyperparameter searching, this experimental result should be taken as a proof of concept. 
 
