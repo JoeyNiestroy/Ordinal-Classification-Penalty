@@ -1,13 +1,13 @@
-# Nominal-Classification-Penalty
-A proposed KL-div based penalty to improve the performance of nominal classification tasks with NN backends with minimal comp costs
+# Ordinal-Classification-Penalty
+A proposed KL-div based penalty to improve the performance of ordinal classification tasks with NN backends with minimal comp costs
 
-# KL Divergence Penalty for Nominal Classifications in Deep Learning
+# KL Divergence Penalty for Ordinal Classifications in Deep Learning
 
-This repository contains an implementation of an approach that adds a Kullback-Leibler (KL) divergence penalty to the standard Cross-Entropy loss function for nominal classification tasks. This approach aims to improve performance by enforcing a smoother probability distribution over classes, effectively guiding the model towards more informed class predictions.
+This repository contains an implementation of an approach that adds a Kullback-Leibler (KL) divergence penalty to the standard Cross-Entropy loss function for ordinal classification tasks. This approach aims to improve performance by enforcing a smoother probability distribution over classes, effectively guiding the model towards more informed class predictions.
 
 ## Overview
 
-In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice nominal predictions have underperformed with this base approach, see CORN loss and similar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
+In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice ordinal predictions have underperformed with this base approach, see CORN loss and similar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
 
 
 
@@ -50,7 +50,7 @@ Both are linear. It should be noted the Gaussian data could be computed at time 
 Below is a breakdown of the key parts of the code used in this experiment.
 
 ### Data
-The UTKFace dataset was used for an age estimation task formulated as a nominal classification task
+The UTKFace dataset was used for an age estimation task formulated as a ordinal classification task
 
 ### Model and Training
 
