@@ -7,7 +7,8 @@ This repository contains an implementation of an approach that adds a Kullback-L
 
 ## Overview
 
-In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice ordinal predictions have underperformed with this base approach, see CORN loss and similar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
+In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice ordinal predictions have underperformed with this base approach, see CORN loss and siTraining complete.
+R^2 Score for Age: 158.8661milar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
 
 
 
@@ -33,6 +34,9 @@ $\mathcal{L} = \text{CrossEntropy}(\mathbf{q}, \mathbf{y}) + \alpha D_{KL}(\math
 where:
 -  $\mathbf{y}$ is the true class label,
 - $\alpha$ is a hyperparameter controlling the weight of the KL divergence penalty.
+
+#### Decaying Variance
+Along with the base loss shown above, an exponentially decaying variance was test on $Var(s)$, with a similar functionality to learning rate decay with updates every epoch. 
 
 ### Computational Complexity and Space Requirements
 For a batch size of $B$ and a class size of $K$
@@ -83,10 +87,10 @@ def kl_divergence(p, q):
 ## Results and Observations
 
 
-| Metric                         | Cross-Entropy (Base) | Cross-Entropy + KL Divergence Penalty |
-|--------------------------------|----------------------|---------------------------------------|
-| **Mean MSE on Clean Data**          | 188.38 ± x       | 169.61 ± x                        |
-| **Confidence Interval (95%)**  | *     | *                       |
+| Metric                         | Cross-Entropy (Base) | Cross-Entropy + KL Divergence Penalty | Cross-Entropy + KL Divergence Penalty + Var Decay |
+|--------------------------------|----------------------|---------------------------------------|---------------------------------------|
+| **Mean MSE on Clean Data**          | 188.38 ± x       | 169.61 ± x                        |   154.96 ± x
+| **Confidence Interval (95%)**  | *     | *                       | *
 
 Confidence intervals will added once I'm able to re-run experiement on suitable number of iterations. For now we can see a minor improvment on the performance over our control model with base cross entropy which fingers crossed winds up being significant. 
 
