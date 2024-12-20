@@ -8,15 +8,20 @@ import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.metrics import r2_score, mean_squared_error
 
+import numpy as np
+
 
 setting = {
 'num_epochs' : 75,
 'sigma_value' : 10,
 'batch_size' : 256,
 'decay'      : True
-
-
 }
+
+
+
+
+
 
 num_epochs = setting['num_epochs']
 sigma_value = setting['sigma_value']
@@ -47,7 +52,7 @@ def train_model(model, train_loader, optimizer, criterion, num_epochs=10):
 
         print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader):.4f}")
 
-# 5. Evaluation on Test Set using MSE Score
+#Evaluation on Test Set using MSE Score
 def evaluate_model(model, test_loader):
     model.eval()  # Set the model to evaluation mode
     true_labels = []
@@ -114,8 +119,7 @@ class FaceDataset(Dataset):
         # Return image and the labels as a tuple
         return image, torch.tensor([age, gender, race], dtype=torch.float)
 
-# Example usage:
-# Define transformations if needed
+#Transformations
 transform = transforms.Compose([
     transforms.Resize((128, 128)),  # Resize images to 128x128
     transforms.ToTensor(),          # Convert image to tensor
@@ -158,7 +162,6 @@ class AgePredictorCNN(nn.Module):
         return x
     
 
-import numpy as np
 def create_gaussian_mound(num_classes, correct_class, sigma=1):
     x = np.arange(num_classes)
     target_probs = np.exp(-0.5 * ((x - correct_class) / sigma) ** 2)
@@ -234,7 +237,7 @@ for epoch in range(num_epochs):
         # Accumulate loss
         running_loss += true_loss.item()
         batch += 1
-    evaluate_model(model, test_loader)
+    evaluate_model(model, train_loader)
     
     if decay_flag:
         sigma_value = sigma_value*.95
@@ -244,10 +247,5 @@ for epoch in range(num_epochs):
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/batch}')
 
 print('Training complete.')
-
-
-
-# Evaluate the model on the test set
-evaluate_model(model, test_loader)
 
 
