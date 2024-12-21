@@ -71,10 +71,10 @@ def evaluate_model(model, test_loader):
     true_labels = np.concatenate(true_labels)
     predicted_labels = np.concatenate(predicted_labels)
 
-    # Calculate R^2 score for age
-    r2_age = mean_squared_error(true_labels, predicted_labels)
+    # Calculate MSE score for age
+    mse_age = mean_squared_error(true_labels, predicted_labels)
 
-    print(f"R^2 Score for Age: {r2_age:.4f}")
+    print(f"MSE for Age: {mse_age:.4f}")
 
 
 
@@ -140,8 +140,8 @@ class AgePredictorCNN(nn.Module):
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1)        
         # Fully connected layers
-        self.fc1 = nn.Linear(128 * 16 * 16, 256)  # Adjust based on input image size
-        self.fc2 = nn.Linear(256, 117)  # Output for age regression        
+        self.fc1 = nn.Linear(128 * 16 * 16, 256)
+        self.fc2 = nn.Linear(256, 117)  # Output for age prediction        
         # Max pooling layer
         self.pool = nn.MaxPool2d(2, 2)        
         # Dropout layer
@@ -152,7 +152,7 @@ class AgePredictorCNN(nn.Module):
         x = self.pool(F.relu(self.conv2(x)))  # 32x32 -> 16x16
         x = self.pool(F.relu(self.conv3(x)))  # 16x16 -> 8x8        
         # Flatten the output
-        x = x.view(-1, 128 * 16 * 16)  # Adjust based on input image size       
+        x = x.view(-1, 128 * 16 * 16)       
         # Fully connected layers with dropout
         x = F.relu(self.fc1(x))
         x = self.dropout(x)       
