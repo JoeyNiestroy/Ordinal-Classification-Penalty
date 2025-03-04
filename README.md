@@ -7,8 +7,7 @@ This repository contains an implementation of an approach that adds a Kullback-L
 
 ## Overview
 
-In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice ordinal predictions have underperformed with this base approach, see CORN loss and siTraining complete.
-R^2 Score for Age: 158.8661milar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
+In traditional classification tasks, the model is typically trained with a Cross-Entropy loss function, while this approach works well, it treats each class independently without incorporating any additional structure or inter-class relationships. In practice ordinal predictions have underperformed with this base approach, see CORN loss and similar approaches for how researchers have tried to combat this issue. Below is the approach I've designed for this issue
 
 
 
